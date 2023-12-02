@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<robot name="igvc_bot">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/vikram_model.dae"/>
+      </geometry>
+      <origin rpy="0 0 3.14" xyz="-0.1 0.6 0.047452"/>
+    </visual>
+    <collision>
+     <geometry>
+        <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/vikram_model.dae"/>
+      </geometry>
+      <origin rpy="0 0 3.14" xyz="-0.1 0.6 0.047452"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+    </inertial>
+  </link>
+  <link name = "perpendicular">
+   
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.0001 0.00001 0.00001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.0001 0.00001 0.00001"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0"/>
+        <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0"/>
+      </inertial>
+  </link>
+  <link name="zed_camera">
+    <collision>
+        <origin rpy="0 0 1.5707" xyz="-0.015 -0.005 0"/>
+        <geometry>
+          <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/zed2i.dae"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin rpy="0 0 1.5707" xyz="-0.015 -0.005 0"/>
+        <geometry>
+          <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/zed2i.dae" scale="1 1 1"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.5"/>
+        <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+      </inertial>
+  </link>
+
+      <gazebo reference="zed_camera">
+        <sensor name="zed" type="depth">
+          <always_on>true</always_on>
+          <update_rate>15</update_rate>
+          <pose>0 0 0 0 0 0</pose>
+          <camera name="realsense_depth_camera">
+              <horizontal_fov>1.46608</horizontal_fov>
+              <image>
+                  <width>424</width>
+                  <height>240</height>
+                  <format>B8G8R8</format>
+              </image>
+              <clip>
+                  <near>0.05</near>
+                  <far>8</far>
+              </clip>
+          </camera>
+          <!-- https://github.com/mlherd/ros2_turtlebot3_waffle_intel_realsense -->
+          <plugin name="intel_realsense_d430_depth_driver" filename="libgazebo_ros_camera.so">
+              <ros>
+                  <namespace>stereo</namespace>
+                  <!-- <remapping>${name}/image_raw:=color/image_raw</remapping>
+                  <remapping>${name}/depth/image_raw:=depth/image_rect_raw</remapping>
+                  <remapping>${name}/camera_info:=camera_info</remapping>
+                  <remapping>${name}/depth/camera_info:=depth/camera_info</remapping>
+                  <remapping>${name}/points:=depth/points</remapping> -->
+              </ros>
+              <camera_name>zed</camera_name>
+              <frame_name>zed_camera</frame_name>
+              <hack_baseline>0.07</hack_baseline>
+              <min_depth>0.05</min_depth>
+              <max_depth>8.0</max_depth>
+          </plugin>
+        </sensor>
+      </gazebo>
+
+<link name="wheel1">
+<visual>
+  <geometry>
+    <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/wheel.dae"/>
+  </geometry>
+<origin rpy ="0 0 0" xyz="0.05 0.047 0"/>
+</visual>
+
+<collision>
+  <geometry>
+    <cylinder radius="0.2" length="0.073987"/>
+  </geometry>
+  <origin rpy ="1.5707 0 1.5707" xyz="-0 0 0"/>
+</collision>
+
+    <inertial>
+      <mass value="5"/>
+      <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+    </inertial>
+
+</link>
+<link name="wheel2">
+<visual>
+  <geometry>
+    <mesh filename="/home/kallrax/abhiyaan_ws_ros2/igvc24_ws/src/igvc_sim/meshes/igvc23/wheel.dae"/>
+  </geometry>
+<origin rpy ="0 0 0" xyz="0.05 0.047 0"/>
+</visual>
+
+<collision> 
+  <geometry>
+    <cylinder radius="0.2" length="0.073987"/>
+  </geometry>
+<origin rpy ="1.5707 0 1.5707" xyz="-0 0 0"/>
+</collision>
+
+    <inertial>
+      <mass value="5"/>
+      <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+    </inertial>
+
+</link>
+
+<link name="castor_ball">
+<visual>
+<geometry>
+<sphere radius="0.05"/>
+</geometry>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+</visual>
+
+<collision>
+<geometry>
+<sphere radius="0.05"/>
+</geometry>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+</collision>
+
+    <inertial>
+      <mass value="3"/>
+      <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+    </inertial>
+
+</link>
+
+<link name="castor_cylinder">
+<visual>
+<geometry>
+ <cylinder length="0.03" radius="0.05"/>
+</geometry>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+</visual>
+
+<collision>
+<geometry>
+ <cylinder length="0.03" radius="0.05"/>
+</geometry>
+<origin rpy ="0 0 0" xyz="0 0 0"/>
+</collision>
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.166667" ixy="0.0" ixz="0.0" iyy="0.166667" iyz="0.0" izz="0.166667"/>
+    </inertial>
+
+</link>
+
+
+ <joint name="body_to_wheel1" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel1"/>
+	<axis xyz="1 0 0"/>
+    <origin rpy ="0 0 1.5707" xyz="-0.019369 -0.35 0"/>
+  </joint>
+ <joint name="body_to_wheel2" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel2"/>
+    <axis xyz="-1 0 0"/>
+    <origin rpy ="0 0 -1.5707" xyz="-0.019369 0.4 0"/>
+  </joint>
+
+
+ <joint name="body_to_castor_cylinder" type="continuous">
+    <parent link="base_link"/>
+    <child link="castor_cylinder"/>
+    <axis xyz="0 0 1"/>
+    <origin rpy ="0 -0.012285 0" xyz="-0.609078 -0.008 -0.1"/>
+  </joint>
+ <joint name="cylinder_to_castor_ball" type="continuous">
+    <parent link="castor_cylinder"/>
+    <child link="castor_ball"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy ="0 0.132544 0" xyz="0 0 -0.065"/>
+  </joint>
+  <joint name="camera_to_body" type="fixed">
+  <parent link="base_link"/>
+  <child link="zed_camera"/>
+  <origin rpy ="0 0 0" xyz="-0.15 0.025 0.705"/>
+  </joint>
+
+  <joint name="perp" type="fixed">
+  <parent link="base_link"/>
+  <child link="perpendicular"/>
+  <origin rpy ="1.5707 0 0" xyz="0.15 0 1.58"/>
+  </joint>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+
+      <ros>
+        <namespace>/igvc23_bot</namespace>
+      </ros>
+
+      <!-- wheels -->
+      <left_joint>body_to_wheel2</left_joint>
+      <right_joint>body_to_wheel1</right_joint>
+
+      <!-- kinematics -->
+      <wheel_separation>0.67336</wheel_separation>
+      <wheel_diameter>0.4</wheel_diameter>
+
+      <!-- limits -->
+      <max_wheel_torque>100</max_wheel_torque>
+      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+      <!-- output -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+
+
+    </plugin>
+  </gazebo>
+
+</robot>
